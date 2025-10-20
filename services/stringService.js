@@ -64,7 +64,7 @@ async function searchString(query){
 
 async function filter(query) {
     const parsed_filters= {}
-    const q = query.toLowerCase
+    const q = query.toLowerCase()
 
     if(q.includes('palindromic'))
         parsed_filters.is_palindrome = true
@@ -83,7 +83,7 @@ async function filter(query) {
 
     if (Object.keys(parsed_filters).length === 0) return null;
 
-    const filtered = searchString(parsed_filters)
+    const filtered =await searchString(parsed_filters)
 
     return {
         ...filtered,
