@@ -6,7 +6,9 @@ const router = require("./routes/stringRoutes")
 const app = express()
 
 app.use(bodyParser.json())
-app.use('/strings', router)
+// app.use('/strings', router)
+
+
 
 app.use((req, res) => {
     res.status(404).json({ error: 'Not Found' });
