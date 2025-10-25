@@ -2,17 +2,31 @@
 const express = require("express")
 const bodyParser = require("body-parser")
 const router = require("./routes/stringRoutes")
+const connectDB = require('./config/db')
+const fs = require('fs')
+const countryRoutes = require('./routes/countryRoutes')
 
 const app = express()
-
+// connectDB();
 app.use(bodyParser.json())
+app.use('/', countryRoutes)
+
+app.use(express.json())
+
+if (!fs.existsSync('cache')) fs.mkdirSync('cache')
+
+
 // app.use('/strings', router)
 
-
-
-app.use((req, res) => {
-    res.status(404).json({ error: 'Not Found' });
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ error: 'Internal server error' });
 });
+
+
+// app.use((req, res) => {
+//     res.status(404).json({ error: 'Not Found' });
+// });
 
 // app.get('/me', async (req, res) => {
 //     try{

@@ -1,8 +1,9 @@
-import axios from "axios";
+const axios = require("axios");
 
 const fetchCountries = async () => {
     const url = ' https://restcountries.com/v2/all?fields=name,capital,region,population,flag,currencies'
     const res = await axios.get(url, { timeout: 10000})
+    console.log(res.data)
     return res.data
 }
 
