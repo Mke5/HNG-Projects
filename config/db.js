@@ -33,8 +33,9 @@ const connect = async () => {
         pool = mysql.createPool(connectionConfig)
         const createTable = `
             CREATE TABLE IF NOT EXISTS countries (
+                id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 -- The country name, used as the primary identifier for updates/lookups
-                name VARCHAR(255) NOT NULL PRIMARY KEY,
+                name VARCHAR(255) NOT NULL UNIQUE,
                 
                 -- Basic geographic data, nullable
                 capital VARCHAR(255) NULL,

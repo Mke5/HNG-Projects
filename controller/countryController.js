@@ -76,9 +76,17 @@ const refreshCountries = async (req, res) => {
 };
 
 const getCountries = async (req, res) => {
+    let pool;
+    try {
+        pool = getPool(); 
+    } catch (e) {
+        // If the pool isn't ready, return a 500 error gracefully
+        return res.status(500).json({ error: 'Database not initialized' });
+    }
     if (!pool) return res.status(500).json({ error: 'Database not initialized' })
     try {
         const { region, currency, sort } = req.query;
+        let sql = 'SELECT * FROM countries';
         const params = [];
         const conditions = [];
         // const query = {};
@@ -112,11 +120,19 @@ const getCountries = async (req, res) => {
 
         res.json(countries);
     } catch (err) {
+        console.log(err)
         res.status(500).json({ error: 'Internal server error' });
     }
 };
 
  const getCountryByName = async (req, res) => {
+    let pool;
+    try {
+        pool = getPool(); 
+    } catch (e) {
+        // If the pool isn't ready, return a 500 error gracefully
+        return res.status(500).json({ error: 'Database not initialized' });
+    }
     try{   
         if (!pool) return res.status(500).json({ error: 'Database not initialized' })
         const name = req.params.name;
@@ -132,6 +148,13 @@ const getCountries = async (req, res) => {
 };
 
  const deleteCountry = async (req, res) => {
+    let pool;
+    try {
+        pool = getPool(); 
+    } catch (e) {
+        // If the pool isn't ready, return a 500 error gracefully
+        return res.status(500).json({ error: 'Database not initialized' });
+    }
     if (!pool) return res.status(500).json({ error: 'Database not initialized' });
     try{
         const name = req.params.name;
@@ -150,6 +173,13 @@ const getCountries = async (req, res) => {
 };
 
  const getStatus = async (req, res) => {
+    let pool;
+    try {
+        pool = getPool(); 
+    } catch (e) {
+        // If the pool isn't ready, return a 500 error gracefully
+        return res.status(500).json({ error: 'Database not initialized' });
+    }
     if (!pool) return res.status(500).json({ error: 'Database not initialized' });
     try{
         // const total = await Country.countDocuments();
